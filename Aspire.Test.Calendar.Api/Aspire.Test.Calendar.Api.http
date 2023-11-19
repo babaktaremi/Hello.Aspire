@@ -1,0 +1,10 @@
+@Aspire.Test.Calendar.Api_HostAddress = https://localhost:7117
+
+GET {{Aspire.Test.Calendar.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+
+GET {{Aspire.Test.Calendar.Api_HostAddress}}/Test
+Accept: application/json
