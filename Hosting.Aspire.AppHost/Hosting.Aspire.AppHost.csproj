@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aspire.Test.Calendar.Api\Aspire.Test.Calendar.Api.csproj" />
+    <ProjectReference Include="..\Aspire.Test.UI\Aspire.Test.Blazor.UI\Aspire.Test.Blazor.UI.csproj" />
   </ItemGroup>
 
 </Project>

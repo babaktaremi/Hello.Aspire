@@ -1,0 +1,49 @@
+﻿@page "/CalendarEvents"
+@rendermode InteractiveServer
+@inject CalendarApiClientService CalendarApiClient
+<h3>CalendarEvents</h3>
+
+<div class="align-items-center">
+
+    <input class="form-group text-center" @bind-value="_year" placeholder="Enter the year in georgian"  />
+    <input class="form-group text-center" @bind-value="_month" placeholder="Enter the month in georgian"  />
+    <input class="form-group text-center" @bind-value="_day" placeholder="Enter the day in georgian" />
+    <button class="btn btn-primary" @onclick="GetEvents">Get Events!</button>
+    
+    @if (_events.Any())
+    {
+        foreach (var eventApiModel in _events)
+        {
+            <div class="container mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@eventApiModel.Description</h5>
+                        <p class="card-text">@(!string.IsNullOrEmpty(eventApiModel.AdditionalDescription)?eventApiModel.AdditionalDescription:"No additional info")</p>
+                        <p class="card-text"><strong>Is it a holiday?</strong>@(eventApiModel.IsHoliday?"Yes":"No")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+</div>
+
+
+<p>@(_date)</p>
+
+@code {
+    private int _year;
+    private int _month;
+    private int _day;
+    private string _date;
+
+    private List<EventApiModel> _events = new();
+
+    public async Task GetEvents()
+    {
+        _events.Clear();
+        _events = await CalendarApiClient.GetEvents(_year, _month, _day)?? new();
+    }
+
+}

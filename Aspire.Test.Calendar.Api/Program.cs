@@ -23,7 +23,7 @@ var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-app.MapGet("/Test", async (ICalendarApiService apiService
+app.MapGet("/api/events/{year}/{month}/{day}", async (ICalendarApiService apiService
     , IConnectionMultiplexer redisConnection
     ,ILogger<Program> logger
     , int year,int month,int day) =>
@@ -40,7 +40,7 @@ app.MapGet("/Test", async (ICalendarApiService apiService
         return Results.Ok(cachedValue);
    }
 
-    var apiResponse = await apiService.GetGeorgianDate(1402, 1, 1);
+    var apiResponse = await apiService.GetGeorgianDate(year, month, day);
 
     var events = apiResponse.Events
         .Select(c => new EventApiModel(c.Description, c.AdditionalDescription, c.IsHoliday, c.IsReligious))
